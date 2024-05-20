@@ -143,31 +143,23 @@ h1, h2 {
     color: #fff;
     padding: 10px;
     border-top-right-radius: 10px;
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
 #badge:hover {
     transform: translateY(-50px);
-    background-color: #8a2be2;
+    background-color: #fff;
+    color: #6a0dad;
 }
 
 #badge:hover::after {
     content: "Робота зроблена Котковським Марком";
     display: block;
     padding: 10px;
-    background-color: #8a2be2;
+    background-color: #fff;
+    color: #e81180;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
-
-/* Print styles */
-@media print {
-    #badge {
-        background-color: #fff;
-        color: #000;
-        border: 2px solid #6a0dad;
-        content: "Ваше Ім'я";
-    }
 }
 
 /* Responsive columns */
