@@ -1,32 +1,34 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кошик покупок</title>
+    <title>Shopping Cart</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Кошик покупок</h1>
+        <h1>Shopping Cart</h1>
         <div class="content">
             <div class="shopping-cart">
                 <div class="add-item">
                     <input type="text" id="new-item-name" placeholder="Назва товару">
-                    <button id="add-item-btn" data-tooltip="Додати товар">Додати</button>
+                    <button id="add-item-btn" data-tooltip="Додати">Додати</button>
                 </div>
                 <div class="items-list">
-                    <div class="item">
+                    <div class="item not-bought-item">
                         <span class="item-name">Помідори</span>
                         <div class="quantity-controls">
-                            <button class="quantity-btn" data-tooltip="Зменшити кількість">-</button>
+                            <button class="quantity-btn" data-tooltip="Зменшити кількість" style="visibility: hidden;">-</button>
                             <span class="quantity">2</span>
-                            <button class="quantity-btn" data-tooltip="Збільшити кількість">+</button>
+                            <button class="quantity-btn" data-tooltip="Збільшити кількість" style="visibility: hidden;">+</button>
                         </div>
+
+                        <button class="delete-btn" data-tooltip="Видалити продукт" style="visibility: hidden;">✖</button>
                         <button class="status-btn not-bought" data-tooltip="Змінити статус">Не куплено</button>
-                        <button class="delete-btn" data-tooltip="Видалити товар">✖</button>
                     </div>
-                    <div class="item">
+                    
+                    <div class="item bought-item">
                         <span class="item-name">Печиво</span>
                         <div class="quantity-controls">
                             <button class="quantity-btn" data-tooltip="Зменшити кількість">-</button>
@@ -34,9 +36,9 @@
                             <button class="quantity-btn" data-tooltip="Збільшити кількість">+</button>
                         </div>
                         <button class="status-btn bought" data-tooltip="Змінити статус">Куплено</button>
-                        <button class="delete-btn" data-tooltip="Видалити товар">✖</button>
+                        <button class="delete-btn" data-tooltip="Видалити продукт">✖</button>
                     </div>
-                    <div class="item">
+                    <div class="item bought-item">
                         <span class="item-name">Сир</span>
                         <div class="quantity-controls">
                             <button class="quantity-btn" data-tooltip="Зменшити кількість">-</button>
@@ -44,12 +46,12 @@
                             <button class="quantity-btn" data-tooltip="Збільшити кількість">+</button>
                         </div>
                         <button class="status-btn bought" data-tooltip="Змінити статус">Куплено</button>
-                        <button class="delete-btn" data-tooltip="Видалити товар">✖</button>
+                        <button class="delete-btn" data-tooltip="Видалити продукт">✖</button>
                     </div>
                 </div>
             </div>
             <div class="summary">
-                <h2>Залишилося</h2>
+                <h2>Залишилось</h2>
                 <ul id="remaining-items">
                     <li>Печиво <span class="quantity">2</span></li>
                     <li>Сир <span class="quantity">1</span></li>
@@ -61,6 +63,9 @@
             </div>
         </div>
     </div>
-    <div id="badge">BuyList</div>
+    <div id="badge">
+        <span class="badge-text">Buy List</span>
+        <span class="badge-hover-text">Created by: Mark Kot</span>
+    </div>
 </body>
 </html>

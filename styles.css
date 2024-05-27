@@ -35,17 +35,17 @@ h1, h2 {
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 5px 0 0 5px;
+    margin: 0;
 }
 
 .add-item button {
-    margin-left: 10px;
     padding: 10px;
     font-size: 16px;
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 0 5px 5px 0;
     cursor: pointer;
     position: relative;
 }
@@ -55,16 +55,30 @@ h1, h2 {
 }
 
 .items-list .item {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto auto auto auto; /* Додано ще одну колонку для вирівнювання */
     align-items: center;
+    gap: 10px;
     padding: 10px 0;
     border-bottom: 1px solid #eee;
 }
 
 .item .item-name {
-    flex: 1;
+    text-align: left;
 }
+
+.shopping-cart, .summary {
+    flex: 1;
+    margin-right: 0px; /* Додаємо зовнішній відступ між блоками */
+}
+
+.item .quantity {
+    margin: 0 10px;
+    display: flex;
+    align-items: center; /* Додаємо вирівнювання по вертикалі */
+}
+
+
 
 .quantity-controls {
     display: flex;
@@ -90,8 +104,6 @@ h1, h2 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
-    position: relative;
 }
 
 .status-btn {
@@ -101,10 +113,14 @@ h1, h2 {
 
 .status-btn.bought {
     background-color: #5cb85c;
+    width: 100px;
 }
 
 .status-btn.not-bought {
+    margin-right: 10px;
     background-color: #d9534f;
+    grid-column: span 2; /* Додано для розтягування кнопки */
+    width: 100px;
 }
 
 .delete-btn {
@@ -114,6 +130,8 @@ h1, h2 {
 
 .summary {
     margin-top: 20px;
+    border-left: 2px solid #ccc;
+    padding-left: 20px;
 }
 
 .summary ul {
@@ -143,39 +161,43 @@ h1, h2 {
     color: #fff;
     padding: 10px;
     border-top-right-radius: 10px;
+    width: 150px;
+    height: 50px;
     transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#badge .badge-text {
+    transition: opacity 0.3s ease-in-out;
+}
+
+#badge .badge-hover-text {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#badge:hover .badge-hover-text {
+    opacity: 1;
+}
+
+#badge:hover .badge-text {
+    opacity: 0;
 }
 
 #badge:hover {
-    transform: translateY(-50px);
     background-color: #fff;
     color: #6a0dad;
 }
 
-#badge:hover::after {
-    content: "Робота зроблена Котковським Марком";
-    display: block;
-    padding: 10px;
-    background-color: #fff;
-    color: #e81180;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-/* Responsive columns */
-.content {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-@media (max-width: 500px) {
-    .content {
-        flex-direction: column;
-    }
-}
-
-/* Tooltip */
+/* Tooltip styles */
 button[data-tooltip] {
     position: relative;
 }
@@ -183,20 +205,91 @@ button[data-tooltip] {
 button[data-tooltip]::after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%) scale(0.5);
     background-color: #6a0dad;
     color: #fff;
-    padding: 5px;
+    padding: 5px 10px;
     border-radius: 5px;
     white-space: nowrap;
     opacity: 0;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    z-index: 1;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    top: -100%; /* Виправлено, щоб підказка зʼявлялася вище кнопки */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
 button[data-tooltip]:hover::after {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+}
+
+/* Responsive columns */
+.content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+.shopping-cart, .summary {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+    }
+
+    .shopping-cart, .summary {
+        width: 100%;
+    }
+}
+
+
+/* Badge styles */
+#badge {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #6a0dad;
+    color: #fff;
+    padding: 10px;
+    border-top-right-radius: 10px;
+    width: 150px;
+    height: 50px;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#badge .badge-text {
+    transition: opacity 0.3s ease-in-out;
+}
+
+#badge .badge-hover-text {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#badge:hover .badge-hover-text {
+    opacity: 1;
+}
+
+#badge:hover .badge-text {
+    opacity: 0;
+}
+
+#badge:hover {
+    background-color: #fff;
+    color: #6a0dad;
 }
