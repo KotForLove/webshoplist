@@ -46,7 +46,9 @@ document.addEventListener('DOMContentLoaded', function () {
             const itemNameElement = document.createElement('span');
             itemNameElement.classList.add('item-name');
             itemNameElement.textContent = item.name;
-            itemNameElement.addEventListener('click', () => editItemName(index));
+            if (!item.bought) {
+                itemNameElement.addEventListener('click', () => editItemName(index));
+            }
 
             const quantityControls = document.createElement('div');
             quantityControls.classList.add('quantity-controls');
@@ -136,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
         items[index].quantity++;
         saveItems();
         renderItems();
-            updateStatistics();
+        updateStatistics();
     }
 
     function deleteItem(index) {
